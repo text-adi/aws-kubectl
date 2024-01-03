@@ -35,7 +35,7 @@ jobs:
           
           echo "Create dir with bin version" && mkdir ./bin && chmod 777 ./bin
           ls -la
-          sudo install -o root -g root -m 0755 ./kubectl ./bin/kubectl
+          sudo install -o root -g root -m 0777 ./kubectl ./bin/kubectl
           echo "kubectl_version=$(./kubectl version --client -o json | jq '.clientVersion.gitVersion')#v" >> $GITHUB_OUTPUT
 
       - name: Check kubectl version
