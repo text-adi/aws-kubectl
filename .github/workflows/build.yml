@@ -25,7 +25,8 @@ jobs:
         run: |
           mkdir -p build/kubectl
           mkdir -p build/awscli
-      - name: Get kubectl
+
+      - name: Install kubectl
         working-directory: build/kubectl
         run: |
           LATEST_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
@@ -39,21 +40,26 @@ jobs:
       - name: Get version kubectl
         working-directory: build/kubectl/bin
         id: vars
-        run: echo "kubectl_version=$(./kubectl version --client -o json | jq '.clientVersion.gitVersion')#v" >> $GITHUB_OUTPUT
+        run: echo "kubectl_version=$(./kubectl version --client -o json | jq '.clientVersion.gitVersion' | tr -d 'v"')" >> $GITHUB_OUTPUT
 
       - name: Check kubectl version
         run: |
           echo "kubectl: '${{ steps.vars.outputs.kubectl_version }}'"
 
-      - name: Get awscli
+      - name: Install awscli
         working-directory: build/awscli
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscli.zip" && unzip awscli.zip
-          echo "Create dir with bin version" && mkdir bin
+
+          echo "Create dir with bin version ./bin" && mkdir ./bin
           ./aws/install --bin-dir ./bin
+
+      - name: Get version awscli
+        working-directory: build/kubectl/bin
+        id: vars
+        run: |
           ./aws --version | cut -d' ' -f1 | cut -d'/' -f2
-          
-          echo "aws_version=(./kubectl version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
+          echo "awscli_version=(./aws version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
 
 
 
