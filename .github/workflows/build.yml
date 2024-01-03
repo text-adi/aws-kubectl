@@ -54,6 +54,7 @@ jobs:
         working-directory: build/awscli/bin
         id: awscli
         run: |
+          ls -la
           ./aws --version | cut -d' ' -f1 | cut -d'/' -f2
           echo "version=$(./aws version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
 
