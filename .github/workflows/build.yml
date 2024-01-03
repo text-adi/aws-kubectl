@@ -48,7 +48,7 @@ jobs:
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscli.zip" && unzip awscli.zip
 
           echo "Create dir with bin version ./bin" && mkdir ./bin
-          ./aws/install --bin-dir ./bin --install-dir ./local --update
+          sudo ./aws/install --bin-dir ./bin --install-dir ./local --update
 
       - name: Get version awscli
         working-directory: build/awscli/bin
