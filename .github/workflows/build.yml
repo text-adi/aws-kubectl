@@ -47,18 +47,17 @@ jobs:
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscli.zip" && unzip awscli.zip
           sudo ./aws/install --bin-dir ./bin --install-dir ./local --update
+          ls -la
 
       - name: Get version awscli
         working-directory: build/awscli
         id: awscli
-        run: |          
+        run: |
           echo "version=$(aws --version | cut -d' ' -f1 | cut -d'/' -f2)" >> $GITHUB_OUTPUT
 
-      - name: Check kubectl version
+      - name: Check kubectl and awscli version
         run: |
           echo "kubectl: '${{ steps.kubectl.outputs.version }}'"
-      - name: Check awscli version
-        run: |
           echo "awscli: '${{ steps.awscli.outputs.version }}'"
 
       - name: Login to Docker Hub
@@ -71,6 +70,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          platforms: linux/amd64
+          file: Dockerfile
           push: true
+          provenance: false
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
