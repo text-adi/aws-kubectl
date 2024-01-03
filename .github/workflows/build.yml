@@ -46,16 +46,12 @@ jobs:
         working-directory: build/awscli
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscli.zip" && unzip awscli.zip
-
-          echo "Create dir with bin version ./bin" && mkdir ./bin
           sudo ./aws/install --bin-dir ./bin --install-dir ./local --update
 
       - name: Get version awscli
-        working-directory: build/awscli/bin
+        working-directory: build/awscli
         id: awscli
         run: |
-          ls -la
-          aws --version | cut -d' ' -f1 | cut -d'/' -f2
           echo "version=$(aws version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
 
       - name: Check kubectl version
