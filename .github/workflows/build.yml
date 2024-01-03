@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
 
       - name: Create workdir
         run: |
@@ -76,3 +77,5 @@ jobs:
           provenance: false
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.awscli.outputs.version }}-${{ steps.kubectl.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
