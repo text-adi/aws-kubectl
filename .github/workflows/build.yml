@@ -55,13 +55,13 @@ jobs:
         id: awscli
         run: |
           ls -la
-          ./aws --version | cut -d' ' -f1 | cut -d'/' -f2
+          aws --version | cut -d' ' -f1 | cut -d'/' -f2
           echo "version=$(./aws version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
 
       - name: Check kubectl version
         run: |
           echo "kubectl: '${{ steps.kubectl.outputs.version }}'"
-      - name: Check kubectl version
+      - name: Check awscli version
         run: |
           echo "awscli: '${{ steps.awscli.outputs.version }}'"
 
