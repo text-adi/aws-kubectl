@@ -22,7 +22,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check kubectl and aws
-        working-directory: build
         run: |
           LATEST_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
           curl -LO "https://dl.k8s.io/release/$LATEST_VERSION/bin/linux/amd64/kubectl" 
