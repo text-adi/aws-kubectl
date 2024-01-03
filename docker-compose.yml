@@ -1,6 +1,0 @@
-version: "3"
-services:
-  app:
-#    build: .
-    image: textadi/aws-kubectl:2.15.2-2.15.2
-    tty: true
