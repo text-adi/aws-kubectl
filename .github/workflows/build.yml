@@ -15,15 +15,22 @@ env:
   IMAGE_NAME: aws-kubectl
 
 jobs:
-  Build_and_push:
+  build_and_push:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Check kubectl and aws
-        run:
-          kubectl; aws;
+        working-directory: ./build
+        run: |
+          LATEST_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
+          curl -LO "https://dl.k8s.io/release/$LATEST_VERSION/bin/linux/amd64/kubectl" 
+          curl -LO "https://dl.k8s.io/release/v1.28.0/bin/linux/amd64/kubectl.sha256"
+          echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+      
+
+      #echo "STATIC_VERSION=$( echo $(date +'%s') )" >> $GITHUB_ENV
 
 
       - name: Login to Docker Hub
