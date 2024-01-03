@@ -50,7 +50,7 @@ jobs:
           echo "Create dir with bin version ./bin" && mkdir ./bin
           ./aws/install --bin-dir ./bin --install-dir ./local --update
 
-      - name: Get version awscli
+      - name: Get awscli version
         working-directory: build/kubectl/bin
         id: awscli
         run: |
