@@ -51,8 +51,8 @@ jobs:
       - name: Get version awscli
         working-directory: build/awscli
         id: awscli
-        run: |
-          echo "version=$(aws version --client -o json | jq '.clientVersion.gitVersion')" >> $GITHUB_OUTPUT
+        run: |          
+          echo "version=$(aws --version | cut -d' ' -f1 | cut -d'/' -f2)" >> $GITHUB_OUTPUT
 
       - name: Check kubectl version
         run: |
