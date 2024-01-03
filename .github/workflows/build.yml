@@ -1,4 +1,4 @@
-name: Build image
+name: Build
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - '.github/workflows/build.yml'
   schedule:
     - cron: '0 0 * * *' # every day in 00:00
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
