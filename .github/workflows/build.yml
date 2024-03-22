@@ -54,6 +54,7 @@ jobs:
           file: Dockerfile
           load: true
           provenance: false
+          no-cache: true
           target: local
           tags: |
             ${{ steps.tag.outputs.test }}
