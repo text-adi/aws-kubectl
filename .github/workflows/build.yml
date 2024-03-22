@@ -63,8 +63,8 @@ jobs:
       - name: Get tool version
         id: version
         run: |
-          echo "kubectl=$(docker run -rm ${{ steps.tag.outputs.test }} kubectl version --client -o json | jq '.clientVersion.gitVersion' | tr -d 'v"')" >> $GITHUB_OUTPUT
-          echo "aws=$(docker run -rm ${{ steps.tag.outputs.test }} aws --version | cut -d' ' -f1 | cut -d'/' -f2)" >> $GITHUB_OUTPUT
+          echo "kubectl=$(docker run --rm ${{ steps.tag.outputs.test }} kubectl version --client -o json | jq '.clientVersion.gitVersion' | tr -d 'v"')" >> $GITHUB_OUTPUT
+          echo "aws=$(docker run --rm ${{ steps.tag.outputs.test }} aws --version | cut -d' ' -f1 | cut -d'/' -f2)" >> $GITHUB_OUTPUT
 
       - name: Check kubectl and awscli version
         run: |
