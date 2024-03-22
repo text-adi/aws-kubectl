@@ -81,6 +81,6 @@ jobs:
           provenance: false
           target: local
           tags: |
-            ${{ steps.tag.outputs.test }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ steps.version.outputs.aws }}-${{ steps.version.outputs.kubectl }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
