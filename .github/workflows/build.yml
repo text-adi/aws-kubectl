@@ -54,11 +54,9 @@ jobs:
           file: Dockerfile
           load: true
           provenance: false
-          no-cache: true
           target: local
           tags: |
             ${{ steps.tag.outputs.test }}
-          cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Get tool version
@@ -84,4 +82,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ steps.version.outputs.aws }}-${{ steps.version.outputs.kubectl }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
